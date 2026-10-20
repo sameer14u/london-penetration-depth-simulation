@@ -136,7 +136,7 @@ python3 generate_figures.py
 
 ### 7. Compile the Final PDF Report
 ```bash
-python3 generate_report_pdf.py
+cd latex_report && tectonic report.tex
 ```
 
 ---
@@ -146,7 +146,10 @@ python3 generate_report_pdf.py
 ```plaintext
 SSP Assignment/
 ├── Assignment-1.pdf              # Original assignment brief (Question 6)
-├── SSP_Assignment1_Q6_Report.pdf # Final submission-ready academic report (18 pages)
+├── SSP_Assignment1_Q6_Report.pdf # Final submission-ready academic report (16 pages, compiled via LaTeX)
+├── latex_report/                 # Complete self-contained LaTeX source package
+│   ├── report.tex                # Native LaTeX master document
+│   └── figures/                  # Publication figures used during compilation
 ├── README.md                     # GitHub presentation documentation
 ├── REPORT.md                     # Academic Markdown report with derivations & citations
 ├── PROJECT_GUIDE.md              # Comprehensive project guide and manual
@@ -154,10 +157,8 @@ SSP Assignment/
 ├── .gitignore                    # Python, Streamlit, and OS exclusions
 ├── london_physics.py             # Numerical physics engine (zero UI dependencies)
 ├── app.py                        # Interactive Streamlit GUI application
-├── generate_report_pdf.py        # Automated PDF report builder (fpdf2)
 ├── generate_figures.py           # Automated batch plotting script
 ├── test_suite.py                 # Automated unit and physical consistency test suite
-├── equations_rendered/           # Rendered LaTeX equation image assets
 └── figures/                      # Directory of generated figures and UI captures
     ├── app_interface_overview.png
     ├── fig1_2d_slab.png

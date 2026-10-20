@@ -33,8 +33,9 @@ This guide provides a comprehensive manual for the **Question 6 Assignment: Inte
 - **Numerical Simulation Engine**: Numerically stable implementation solving for 1D and 2D spatial distributions of magnetic field inside and outside superconducting materials, with overflow protection for large aspect ratios ($d/\lambda, R/\lambda > 500$).
 - **Interactive User Interface**: Full-featured web dashboard built in **Streamlit** with 6 intuitive tabs, live slider controls, immediate reactive updates, and physical screening metrics.
 - **Visualizations**: 2D vector streamline diagrams, high-resolution contour colourmaps, 1D attenuation vs. depth plots, temperature divergence curves, and cross-geometry comparative analyses.
+- **Native LaTeX Document Typesetting**: The final academic report is typeset and compiled entirely using native LaTeX (`latex_report/report.tex`), using proper mathematical equation environments (`equation`, `align`), standard academic typography, and genuine simulation figures.
 - **Quality Assurance**: Automated unit and physics test suite passing 8 out of 8 tests, comprehensive scientific documentation, and clean formatting without unwanted cache or temporary files.
-- **Submission Deliverables**: Ready-to-submit publication-grade PDF report (`SSP_Assignment1_Q6_Report.pdf`, 18 pages), academic Markdown report (`REPORT.md`), and GitHub repository presentation (`README.md`).
+- **Submission Deliverables**: Ready-to-submit publication-grade PDF report (`SSP_Assignment1_Q6_Report.pdf`, 16 pages), LaTeX source package (`latex_report/`), academic Markdown report (`REPORT.md`), and GitHub repository presentation (`README.md`).
 
 ---
 
@@ -98,28 +99,52 @@ When $T \ge T_c$, $n_s \to 0$ and $\lambda \to \infty$. The screening currents v
 
 Every file in the repository serves a distinct, necessary role:
 
-| Filename | Purpose |
+| Filename / Directory | Purpose |
 |---|---|
+| `latex_report/` | **Complete standalone LaTeX source folder**. Contains `report.tex` (the complete report in native LaTeX) and `figures/` (all figures utilized by the document). Can be built cleanly on any standard TeX distribution. |
+| `latex_report/report.tex` | **Master LaTeX document source**. Defines the title page, table of contents, mathematical derivations using native `amsmath` environments (`equation`, `align`), genuine figure inclusions, tables, and academic citations. |
+| `SSP_Assignment1_Q6_Report.pdf` | **Final submission-ready PDF report** (16 pages, 2.1 MB). Generated directly by compiling `latex_report/report.tex`. |
 | `london_physics.py` | **Core physics engine**. Contains physical constants, material library (Nb, Pb, Al, Sn, Hg, YBCO), Gorter–Casimir temperature function, 1D analytical profiles, 2D vector/scalar field grid generators, and comparison functions. Zero UI dependencies. |
 | `app.py` | **Interactive Streamlit web application**. Houses the user interface, sidebar parameter inputs, 6 tabs (2D visualization, 1D profiles, temperature dependence, geometry comparison, parameter study, theory), reactive recomputation, and Matplotlib plotting pipelines. |
 | `generate_figures.py` | **Batch plotting script**. Generates all 11 publication-grade PNG diagrams into the `figures/` directory. Useful for offline inspection and building documents without launching the browser UI. |
-| `generate_report_pdf.py` | **PDF report builder**. Uses `fpdf2` to construct the 18-page academic submission report (`SSP_Assignment1_Q6_Report.pdf`) complete with IIT Hyderabad title page, table of contents, embedded figures, equations, and references. |
 | `test_suite.py` | **Automated test suite**. Runs 8 unit and physical consistency tests validating boundary conditions, asymptotic screening, spatial symmetry, temperature divergence, and grid dimensions. |
-| `SSP_Assignment1_Q6_Report.pdf` | **Final submission-ready PDF report**. 18 pages formatted cleanly with figures, equations, derivations, comparative tables, and citations. |
 | `REPORT.md` | **Academic report in Markdown format**. Complete LaTeX-formatted technical report covering executive summary, derivations, numerical methods, results, limitations, and citations. |
 | `README.md` | **GitHub repository front page**. Visually appealing project documentation with badges, screenshots, feature overview, quickstart instructions, and scientific insights. |
 | `PROJECT_GUIDE.md` | **This complete project guide**. Explains the physics, simulation inner workings, file descriptions, workflows, and troubleshooting. |
-| `requirements.txt` | **Dependencies file**. Specifies required Python packages (`numpy`, `scipy`, `matplotlib`, `streamlit`, `fpdf2`, `pytest`). |
+| `requirements.txt` | **Dependencies file**. Specifies required Python packages (`numpy`, `scipy`, `matplotlib`, `streamlit`, `pytest`). |
 | `.gitignore` | **Git exclusion rules**. Prevents temporary files, Python `__pycache__`, OS artifacts (`.DS_Store`), and virtual environments from cluttering the repository. |
 | `Assignment-1.pdf` | **Original assignment brief**. Contains the problem statement and grading criteria for Question 6. |
 | `figures/` | **Directory of generated figures**. Contains all high-resolution PNG plots, 2D field maps, 1D profile graphs, and the UI overview capture (`app_interface_overview.png`). |
-| `equations_rendered/` | **High-resolution mathematical equation image assets**. Rendered via Matplotlib for crisp, clean typographic presentation in the final PDF report. |
 
 ---
 
-## 5. Installation, Execution & Workflows
+## 5. LaTeX Report Compilation Instructions
 
-### 5.1 Environment Setup
+The LaTeX report is fully self-contained inside `latex_report/`.
+
+### 5.1 Using Tectonic (Recommended, Modern & Zero-Config)
+```bash
+cd "/Users/sameerchoudhary/Desktop/SSP Assignment/latex_report"
+tectonic report.tex
+```
+This automatically resolves any required packages and produces `report.pdf`.
+
+### 5.2 Using Traditional pdflatex or latexmk
+```bash
+cd "/Users/sameerchoudhary/Desktop/SSP Assignment/latex_report"
+pdflatex report.tex
+pdflatex report.tex  # Second run to resolve cross-references and Table of Contents
+```
+Or via latexmk:
+```bash
+latexmk -pdf report.tex
+```
+
+---
+
+## 6. Installation, Execution & Workflows
+
+### 6.1 Environment Setup
 Open your terminal and navigate to the project directory:
 ```bash
 cd "/Users/sameerchoudhary/Desktop/SSP Assignment"
@@ -136,7 +161,7 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
-### 5.2 Running the Interactive Web App
+### 6.2 Running the Interactive Web App
 Launch the Streamlit app:
 ```bash
 streamlit run app.py
@@ -146,7 +171,7 @@ Open your web browser at:
 http://localhost:8501
 ```
 
-### 5.3 Running the Test Suite
+### 6.3 Running the Test Suite
 Verify that all numerical and physical checks pass:
 ```bash
 python3 test_suite.py
@@ -157,46 +182,23 @@ Running automated test suite...
 ALL TESTS PASSED SUCCESSFULLY (8/8)!
 ```
 
-### 5.4 Regenerating Figures
+### 6.4 Regenerating Figures
 If you adjust physics parameters in `generate_figures.py` and wish to rebuild all 11 plots:
 ```bash
 python3 generate_figures.py
 ```
 
-### 5.5 Rebuilding the Submission PDF
-To recompile the submission PDF after modifying text or figures:
-```bash
-python3 generate_report_pdf.py
-```
-
----
-
-## 6. Troubleshooting & Common Questions
-
-1. **Port 8501 is already in use**:
-   Run Streamlit on an alternate port:
-   ```bash
-   streamlit run app.py --server.port 8503
-   ```
-2. **Missing dependencies**:
-   Reinstall via:
-   ```bash
-   pip install --upgrade -r requirements.txt
-   ```
-3. **Plots rendering slowly**:
-   In the app sidebar, lower the **Grid resolution** slider from 500 down to 150 or 200. This computes 2D vector streamplots significantly faster.
-4. **Warning: T >= Tc (Material in normal state)**:
-   This is intentional physics behavior. Above $T_c$, superconducting pairing vanishes, $\lambda \to \infty$, and the magnetic field fully penetrates without Meissner screening.
-
 ---
 
 ## 7. Version History & Updates
 
-- **v1.1.0 (Current Release)**:
-  - Formally updated academic details: IIT Hyderabad, Department of Physics, Course Instructor Prof. Arabinda Haldar.
-  - Team members list updated with exact ordering, roll numbers, and Sameer Choudhary* first without leadership titles.
-  - Rebuilt submission PDF (`SSP_Assignment1_Q6_Report.pdf`, 18 pages) featuring high-resolution rendered mathematical equation graphics, crisp typography, clean margins, and genuine simulation figures.
-  - Synchronized `README.md`, `REPORT.md`, and `PROJECT_GUIDE.md` across all documentation channels.
-  - Fixed git tracking and prepared exact commands to update `origin/main` on GitHub.
+- **v1.2.0 (Current Release)**:
+  - **Native LaTeX Report Architecture**: Replaced separate image-rendered equations with clean native LaTeX mathematical typesetting (`amsmath` environments: `equation`, `align`).
+  - **Unwanted Assets Cleaned**: Removed the `equations_rendered/` folder and legacy python PDF builder.
+  - **Dedicated LaTeX Package**: Created `latex_report/` containing `report.tex` and a bundled `figures/` folder for standalone compilation.
+  - **Master PDF**: Generated `SSP_Assignment1_Q6_Report.pdf` (16 pages) directly from LaTeX. Verified all equations, symbols, subscripts, superscripts, fractions, and vector notation render properly without clipping.
+- **v1.1.0**:
+  - Updated institutional details: IIT Hyderabad, Department of Physics, Course Instructor Prof. Arabinda Haldar.
+  - Formatted team members list with Sameer Choudhary* placed first.
 - **v1.0.0**:
   - Initial implementation of the London physics engine, Streamlit interface, and automated test suite.
