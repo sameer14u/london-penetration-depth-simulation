@@ -3,14 +3,26 @@
 
 ---
 
-### **Authors & Contribution Statement**
-- **Group Assignment**: Solid State Physics — Question 6
-- **Topic**: Interactive Simulation of Magnetic-Field Penetration in a Diamagnetic Material
-- **Contributors**:
-  - *Theoretical Framework, London Theory Derivations & Analytical Solutions*: Solid State Physics Group
-  - *Numerical Modeling, Overflow-Safe Algorithms & Physics Engine*: Solid State Physics Group
-  - *Interactive Streamlit Web GUI & Visualization Pipeline*: Solid State Physics Group
-  - *Validation, Parameter Studies, and Scientific Interpretation*: Solid State Physics Group
+### **Academic & Institutional Affiliation**
+- **Institution**: Indian Institute of Technology Hyderabad (IIT Hyderabad)
+- **Department**: Department of Physics (B.Tech. Engineering Physics)
+- **Course**: Solid State Physics — Assignment 1
+- **Course Instructor**: Prof. Arabinda Haldar
+- **GitHub Repository**: [https://github.com/sameer14u/london-penetration-depth-simulation](https://github.com/sameer14u/london-penetration-depth-simulation)
+
+---
+
+### **Team Members**
+1. **EP24BTECH11025** — Sameer Choudhary*
+2. **EP24BTECH11024** — Samarth Gupta
+3. **EP24BTECH11032** — Tejas Prashant Bharadwaj
+4. **EP24BTECH11026** — Samyak Rai
+5. **EP24BTECH11027** — Saraangan B
+6. **EP24BTECH11028** — Savireddy Ansika
+7. **EP24BTECH11029** — Shanmukh Machiraju
+8. **EP24BTECH11030** — Snigdha Indupalli
+9. **EP24BTECH11031** — Srija Baratam
+10. **EP24BTECH11033** — Vishal
 
 ---
 
@@ -175,6 +187,7 @@ When $T \ge T_c$, $n_s \equiv 0$, the London screening mechanism vanishes, and t
 The software repository is organized into distinct functional layers:
 - **`london_physics.py`**: Pure, unit-tested computational physics engine. Handles SI conversions, analytical evaluations, vector field calculations, and comparison utilities.
 - **`app.py`**: Interactive browser dashboard built using Streamlit. Provides dynamic controls and 6 specialized visualization tabs.
+- **`generate_report_pdf.py`**: Automated academic PDF report generator built using `fpdf2`, rendering equations, tables, figures, and metadata.
 - **`generate_figures.py`**: Automated script that compiles all publication-grade figures into PNG format.
 - **`test_suite.py`**: Automated verification suite validating boundary conditions, symmetry, asymptotic limits, and numerical stability.
 
